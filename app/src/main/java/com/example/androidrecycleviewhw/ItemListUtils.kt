@@ -6,7 +6,6 @@ import com.example.androidrecycleviewhw.listDataType.ListData
 import com.example.androidrecycleviewhw.listDataType.WeatherInfoData
 
 object ItemListUtils {
-    private const val NULL = "null"
 
     fun createList(data: Data): MutableList<ListData> {
         val list: MutableList<ListData> = mutableListOf()
@@ -14,8 +13,8 @@ object ItemListUtils {
         data.records.locations[0].weatherElements.forEach { weatherElement ->
             weatherElement.times.forEach { timeInfo ->
                 var infoString = timeInfo.parameter.parameterName
-                if (timeInfo.parameter.parameterUnit != NULL) {
-                    infoString += timeInfo.parameter.parameterUnit
+                timeInfo.parameter.parameterUnit?.apply {
+                    infoString += this
                 }
 
                 list.add(WeatherInfoData(
@@ -24,7 +23,7 @@ object ItemListUtils {
                     infoString = infoString)
                 )
 
-                //list.add(ImageData())
+                list.add(ImageData())
             }
         }
         return list

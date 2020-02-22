@@ -1,4 +1,4 @@
-package com.example.androidrecycleviewhw
+package com.example.androidrecycleviewhw.dataClass
 
 import com.google.gson.annotations.SerializedName
 

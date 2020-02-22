@@ -1,16 +1,32 @@
 package com.example.androidrecycleviewhw
 
-import android.util.Log
+import com.example.androidrecycleviewhw.dataClass.Data
+import com.example.androidrecycleviewhw.listDataType.ImageData
+import com.example.androidrecycleviewhw.listDataType.ListData
+import com.example.androidrecycleviewhw.listDataType.WeatherInfoData
 
 object ItemListUtils {
-    fun createList(data: Data) {
+    private const val NULL = "null"
+
+    fun createList(data: Data): MutableList<ListData> {
+        val list: MutableList<ListData> = mutableListOf()
+
         data.records.locations[0].weatherElements.forEach { weatherElement ->
             weatherElement.times.forEach { timeInfo ->
-                Log.d("QAQ", timeInfo.startTime)
-                Log.d("QAQ", timeInfo.endTime)
-                Log.d("QAQ", "${timeInfo.parameter.parameterName} ${timeInfo.parameter.parameterUnit}")
-                Log.d("QAQ", "-------------")
+                var infoString = timeInfo.parameter.parameterName
+                if (timeInfo.parameter.parameterUnit != NULL) {
+                    infoString += timeInfo.parameter.parameterUnit
+                }
+
+                list.add(WeatherInfoData(
+                    startTime = timeInfo.startTime,
+                    endTime = timeInfo.endTime,
+                    infoString = infoString)
+                )
+
+                //list.add(ImageData())
             }
         }
+        return list
     }
 }
